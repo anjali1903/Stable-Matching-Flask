@@ -1,5 +1,58 @@
 {%extends "base.html"%} {%block content%}
 <div class="container">
+  <h1>College Students Match</h1>
+  <h3>
+    Following is a sample of the csv format that must be provided for results
+  </h3>
+  <img class="mt-4" src="../static/images/Sample2.png" alt="Sample" />
+  <ul class="mt-4">
+    <li>Row 1 <strong>must</strong> contain index numbers starting from 1</li>
+    <li>
+      Row 2 <strong>must</strong> contain names of the participating colleges
+    </li>
+    <li>
+      Row 3 <strong>must</strong> contain names of the participating students
+    </li>
+    <li>
+      Row 4 <strong>must</strong> contain number of the participating colleges
+      and students <br />in the format
+      <strong>N=No. of students and colleges</strong>
+    </li>
+    <li>
+      Row 5 <strong>must</strong> contain the heading of the preferance list
+      being followed:
+    </li>
+    <li>
+      Row 6 onwards there <strong>must</strong> be the Students Preferance List
+      in the following format
+      <ul>
+        <li>Column 1 <strong>must</strong> contain the college name</li>
+        <li>
+          Column 2 onwards <strong>must</strong> contain the Students Preferance
+          List of the particular college
+        </li>
+      </ul>
+    </li>
+    <li>
+      The Universities Preferance List by the students must be in the following
+      format
+      <ul>
+        <li>Column 1 <strong>must</strong> contain the student name</li>
+        <li>
+          Column 2 onwards <strong>must</strong> contain the Universities
+          Preferance List
+        </li>
+      </ul>
+    </li>
+    <li>
+      Following the row where the Students Preferance List ends
+      <strong>must</strong> contain a row with the heading of the preferancelist
+      being followed
+    </li>
+  </ul>
+  <h2 style="color: crimson;">
+    CSV File in any other format will lead to error
+  </h2>
   <form action="data" method="POST">
     <div class="form-group m-2">
       <input

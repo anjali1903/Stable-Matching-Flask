@@ -32,14 +32,14 @@ def data():
             for i in range(4, 4 + N):
                 tmp = []
                 for j in range(0, N):
-                    x = stu.index(arr[i][j])
+                    x = stu.index(arr[i][j + 1])
                     tmp.append(x + N)
                 college.append(tmp)
             # student array
             for i in range(5 + N, 5 + (2 * N)):
                 tmp = []
                 for j in range(0, N):
-                    x = col.index(arr[i][j])
+                    x = col.index(arr[i][j + 1])
                     tmp.append(x)
                 student.append(tmp)
 

@@ -1,27 +1,8 @@
 {%extends "base.html"%} {%block content%}
+<script type="text/javascript" src="../js/tableCSVExporter.js"></script>
 <div class="container">
-  <h1>Info</h1>
-  <table class="table table-striped table-dark">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Participating Colleges</th>
-        <th scope="col">Participating Students</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for i in range(N) %}
-      <tr>
-        <th scope="row">{{i+1}}</th>
-        <td>{{col[i]}}</td>
-        <td>{{stu[i]}}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
   <h1>Resulting Match</h1>
-  <table class="table table-striped table-dark">
+  <table class="table table-striped table-dark" id="dataTable">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -40,5 +21,83 @@
     </tbody>
   </table>
   <a href="/"><button type="button" class="btn btn-dark">Go Back</button></a>
+  <button id="btnExportToCsv" type="button" class="btn btn-dark">
+    Download CSV
+  </button>
+
+  <script>
+    class TableCSVExporter {
+      constructor(table, includeHeaders = true) {
+        this.table = table;
+        this.rows = Array.from(table.querySelectorAll("tr"));
+
+        if (!includeHeaders && this.rows[0].querySelectorAll("th").length) {
+          this.rows.shift();
+        }
+      }
+
+      convertToCSV() {
+        const lines = [];
+        const numCols = this._findLongestRowLength();
+
+        for (const row of this.rows) {
+          let line = "";
+
+          for (let i = 0; i < numCols; i++) {
+            if (row.children[i] !== undefined) {
+              line += TableCSVExporter.parseCell(row.children[i]);
+            }
+
+            line += i !== numCols - 1 ? "," : "";
+          }
+
+          lines.push(line);
+        }
+
+        return lines.join("\n");
+      }
+
+      _findLongestRowLength() {
+        return this.rows.reduce(
+          (l, row) => (row.childElementCount > l ? row.childElementCount : l),
+          0
+        );
+      }
+
+      static parseCell(tableCell) {
+        let parsedValue = tableCell.textContent;
+
+        // Replace all double quotes with two double quotes
+        parsedValue = parsedValue.replace(/"/g, `""`);
+
+        // If value contains comma, new-line or double-quote, enclose in double quotes
+        parsedValue = /[",\n]/.test(parsedValue)
+          ? `"${parsedValue}"`
+          : parsedValue;
+
+        return parsedValue;
+      }
+    }
+  </script>
+  <script>
+    const dataTable = document.getElementById("dataTable");
+    const btnExportToCsv = document.getElementById("btnExportToCsv");
+
+    btnExportToCsv.addEventListener("click", () => {
+      const exporter = new TableCSVExporter(dataTable);
+      const csvOutput = exporter.convertToCSV();
+      const csvBlob = new Blob([csvOutput], { type: "text/csv" });
+      const blobUrl = URL.createObjectURL(csvBlob);
+      const anchorElement = document.createElement("a");
+
+      anchorElement.href = blobUrl;
+      anchorElement.download = "Report.csv";
+      anchorElement.click();
+
+      setTimeout(() => {
+        URL.revokeObjectURL(blobUrl);
+      }, 500);
+    });
+  </script>
 </div>
 {%endblock%}
