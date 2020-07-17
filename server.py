@@ -16,6 +16,8 @@ def data():
     try:
         if request.method == "POST":
             file = request.form["upload-file"]
+            if file == False:
+                return
             data = pd.read_excel(file)
             arr = np.array(data)
             N = arr[2][0]
@@ -89,17 +91,7 @@ def data():
 
             stablMatch(prefer)
 
-            return render_template(
-                "data.html",
-                arr=arr,
-                N=N,
-                college=college,
-                student=student,
-                prefer=prefer,
-                ans=ans,
-                stu=stu,
-                col=col,
-            )
+            return render_template("data.html", N=N, ans=ans,)
     except:
         return render_template("error.html")
 

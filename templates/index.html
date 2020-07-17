@@ -1,8 +1,9 @@
 {%extends "base.html"%} {%block content%}
 <div class="container">
-  <h1>College Students Match</h1>
+  <h1>College-Student Match</h1>
   <h3>
-    Following is a sample of the csv format that must be provided for results
+    Following is a sample of the CSV file format that must be provided for
+    results
   </h3>
   <img class="mt-4" src="../static/images/Sample2.png" alt="Sample" />
   <ul class="mt-4">
@@ -32,6 +33,11 @@
           List of the particular college
         </li>
       </ul>
+      <li>
+        Following the row where the Students Preferance List ends
+        <strong>must</strong> contain a row with the heading of the preferance list
+        being followed
+      </li>
     </li>
     <li>
       The Universities Preferance List by the students must be in the following
@@ -40,15 +46,11 @@
         <li>Column 1 <strong>must</strong> contain the student name</li>
         <li>
           Column 2 onwards <strong>must</strong> contain the Universities
-          Preferance List
+          Preferance List of the particular student
         </li>
       </ul>
     </li>
-    <li>
-      Following the row where the Students Preferance List ends
-      <strong>must</strong> contain a row with the heading of the preferancelist
-      being followed
-    </li>
+
   </ul>
   <h2 style="color: crimson;">
     CSV File in any other format will lead to error
