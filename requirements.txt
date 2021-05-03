@@ -40,7 +40,6 @@ itsdangerous==0.24
 Jinja2==2.11.1
 keyring==10.6.0
 keyrings.alt==3.0
-language-selector==0.1
 lazy-object-proxy==1.5.0
 louis==3.5.0
 Mako==1.0.7
